@@ -7,3 +7,16 @@ spring:
   cloud:
     function:
       definition: pack|label                                # Define functions to be managed by Spring Cloud Functions
+    stream:
+      bindings:                                             # 대상 바인딩 설정을 위한 섹션
+        packlabel-in-0:
+          destination: order-accepted                       # 바인더를 연결할 대상의 브로커 내에서의 실제 이름(래빗MQ의 익스체인지)
+          group: ${spring.application.name}                 # 대상에 관심을 갖는 소비자 그룹
+        packlabel-out-0:
+          destination: order-dispatched                     # 바인더를 연결할 대상의 브로커 내에서의 실제 이름
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: password
+    connection-timeout: 5s
